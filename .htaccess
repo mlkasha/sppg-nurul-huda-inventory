@@ -1,0 +1,18 @@
+RewriteEngine On
+
+# 1. Paksa seluruh akses memakai HTTPS
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Blokir akses publik ke file sensitif (.env, composer, git)
+<FilesMatch "^\.env|composer\.(json|lock)|\.gitignore$">
+    Require all denied
+</FilesMatch>
+
+# 3. Blokir akses langsung ke folder internal
+RewriteRule ^(app|config|vendor|database)(/|$) - [F,L]
+
+# 4. Arahkan akses domain utama langsung ke folder public/
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ public/$1 [L]

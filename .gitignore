@@ -1,0 +1,18 @@
+# Environment Variables (Rahasia & Kredensial Database)
+.env
+.env.local
+.env.*.local
+
+# Dependensi Composer
+/vendor/
+
+# Log Error & File Sementara
+*.log
+error_log
+
+# Konfigurasi Editor / IDE & Sistem Operasi
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
